@@ -40,7 +40,6 @@ caption {
 	background-color:red;
 	text-align:center;
 	color:white;
-    position: fixed;
 }
 
 .error{
