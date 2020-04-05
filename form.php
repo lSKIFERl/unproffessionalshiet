@@ -36,11 +36,11 @@ caption {
 }
 
 #events{
-	border-radius:10px;
-	border-color:black;
-	background-color:blue;
+	border-color:white;
+	background-color:red;
 	text-align:center;
 	color:white;
+    position: fixed;
 }
 
 .error{
@@ -50,7 +50,7 @@ caption {
     </head>
 	<body id='background'>
 		<div id="Form">
-			<div id="events">
+			<div id="events" class="py-3 px-3">
 				<p>Пожалуйста, заполните форму</p>
 			</div>
 			<form method="post" action="index.php" name="contract" class="py-3 px-3">
@@ -152,7 +152,7 @@ caption {
                         <input type="radio" value="2" name="limbs" <?php print $select_limbs[2]?>>2
                         <input type="radio" value="3" name="limbs" <?php print $select_limbs[3]?>>3
                         <input type="radio" value="4" name="limbs" <?php print $select_limbs[4]?>>4
-                        <input type="radio" value="5" name="limbs" <?php print $select_limbs[5]?>>5
+                        <input type="radio" value="5" name="limbs" <?php print $select_limbs[5]?>>5 и более
                     </span>
                 </div>
                 </br>
@@ -186,7 +186,7 @@ caption {
                         ?>
                         <select id="sposobnost" name="sverh[]" multiple="multiple" size="3" class="<?php print $ERROR?>">
                             <option value="net" <?php if(!empty($values['sverh'])) print $SVERH_PROVERKA["net"]?>>None</option>
-                            <option disabled="" title="Будет доступно после познания вселенной" value="disk"<?php if(!empty($values['sverh'])) print $SVERH_PROVERKA["godmod"]?> >Сдать дисмат с 1 раза на 5</option>
+                            <option disabled="" title="Будет доступно после познания вселенной" value="disk"<?php if(!empty($values['sverh'])) print $SVERH_PROVERKA["disk"]?> >Сдать дисмат с 1 раза на 5</option>
                             <option value="tp"<?php if(!empty($values['sverh'])) print $SVERH_PROVERKA["tp"]?> >Телепортация</option>
                             <option value="invisibility"<?php if(!empty($values['sverh'])) print $SVERH_PROVERKA["invisibility"]?> >Невидимость</option>
                             <option value="regen"<?php if(!empty($values['sverh'])) print $SVERH_PROVERKA["regen"]?> >Ускоренная регенерация</option>
