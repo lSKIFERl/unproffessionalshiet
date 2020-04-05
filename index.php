@@ -58,7 +58,7 @@ $sverh_separated='';
         }
         /*if($_COOKIE['sverh_error']=="noneselected"){
             setcookie('sverh_error','',100000);
-            $messages['sverh'] = '<div class="error">Вы создали противоречие самому себе.Уберите "None" и побробуйте ещё раз.</div>';
+            $messages['sverh'] = '<div class="error">выбранно none и зачем я его сюда добавил...</div>';
         }*/
     }
     if ($errors['biography']) {

@@ -44,6 +44,7 @@ caption {
 
 .error{
 	border: 2px solid red;
+    
 }
     </style>	
     </head>
