@@ -49,7 +49,7 @@ caption {
     </head>
 	<body id='background'>
 		<div id="Form">
-			<div id="events">
+			<div id="events" class="py-3 px-3">
 				<p>Пожалуйста, заполните форму</p>
 			</div>
 			<form method="post" action="index.php" name="contract" class="py-3 px-3">
