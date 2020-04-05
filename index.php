@@ -22,53 +22,53 @@ $sverh_separated='';
     if ($errors['name']) {
         if($_COOKIE['name_error']=='none'){
             setcookie('name_error','',100000);
-            $messages['name'] = '<div class="error">Введите имя.</div>';
+            $messages['name'] = '<div id="events">Введите имя.</div>';
     }
     if($_COOKIE['name_error']=='Unacceptable symbols'){
             setcookie('name_error','',100000);
-            $messages['name'] = '<div class="error">Допустима только Латиница и цифры</div>';
+            $messages['name'] = '<div id="events">Допустима только Латиница и цифры</div>';
     }
 }
     if ($errors['email']) {
         if($_COOKIE['email_error']=='none'){
             setcookie('email_error','',100000);
-            $messages['email'] = '<div class="error">Введите почту.</div>';
+            $messages['email'] = '<div id="events">Введите почту.</div>';
         }
         if($_COOKIE['email_error']=='invalid address'){
             setcookie('email_error','',100000);
-            $messages['email'] = '<div class="error">Некорректный адресс почты. Пример:dwarf@erebor.com</div>';
+            $messages['email'] = '<div id="events">Некорректный адресс почты. Пример:dwarf@erebor.com</div>';
         }
     }
     if($errors['year']){
         setcookie('year_error','',100000);
-        $messages['year'] = '<div class="error">Год рождения не указан</div>';
+        $messages['year'] = '<div id="events">Год рождения не указан</div>';
 }
     if($errors['sex']){
             setcookie('sex_error','',100000);
-            $messages['sex'] = '<div class="error">Пол не указан</div>';
+            $messages['sex'] = '<div id="events">Пол не указан</div>';
     }
     if ($errors['limbs']) {
         setcookie('limbs_error','',100000);
-        $messages['limbs'] = '<div class="error">Количество конечностей не указано</div>';
+        $messages['limbs'] = '<div id="events">Количество конечностей не указано</div>';
     }
     if($errors['sverh']){
         if($_COOKIE['sverh_error']=="none"){
             setcookie('sverh_error','',100000);
-            $messages['sverh'] = '<div class="error">Способность не выбрана</div>';
+            $messages['sverh'] = '<div id="events">Способность не выбрана</div>';
         }
         /*if($_COOKIE['sverh_error']=="noneselected"){
             setcookie('sverh_error','',100000);
-            $messages['sverh'] = '<div class="error">выбранно none и зачем я его сюда добавил...</div>';
+            $messages['sverh'] = '<div id="events">выбранно none и зачем я его сюда добавил...</div>';
         }*/
     }
     if ($errors['biography']) {
             setcookie('biography_error','',100000);
-            $messages['biography'] = '<div class="error">Расскажите о себе!</div>';
+            $messages['biography'] = '<div id="events">Расскажите о себе!</div>';
 
     }
     if($errors['consent']){
         setcookie('consent_error','',100000);
-        $messages['consent'] = '<div class="error">Продолжить можно лишь при согласии с контрактом</div>';
+        $messages['consent'] = '<div id="events">Продолжить можно лишь при согласии с контрактом</div>';
     }
 
     $values['name'] = empty($_COOKIE['name_value']) ? '' : $_COOKIE['name_value'];
