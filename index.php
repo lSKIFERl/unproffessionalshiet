@@ -83,10 +83,10 @@ $sverh_separated='';
     $values['biography'] = empty($_COOKIE['biography_value']) ? '' : $_COOKIE['biography_value'];
     $values['consent'] = empty($_COOKIE['consent_value']) ? '' : $_COOKIE['consent_value'];
     if (session_start() && !empty($_COOKIE[session_name()]) && !empty($_SESSION['login'])) {
-        $user = 'логин';
-        $password = 'пароль';
+        $user = 'u17361';
+        $password = '1020693';
         $log=$_SESSION['login'];
-        $db = new PDO('mysql:host=localhost;dbname=логин', $user, $password,
+        $db = new PDO('mysql:host=localhost;dbname=u17361', $user, $password,
         array(PDO::ATTR_PERSISTENT => true));
         try{
         $stmt = $db->prepare("SELECT name,email,birth,sex,limbs,sverh,bio,consent FROM cappapride WHERE login = '$log'");
