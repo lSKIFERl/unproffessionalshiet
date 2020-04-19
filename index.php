@@ -261,7 +261,8 @@ else {
         print('Error : ' . $e->getMessage());
         exit();
     }
-}else 
+}
+else 
 {
     $logins_chars = '0123456789abcdefghijklmnopqrstuvwxyz';
     $pass_chars='0123456789abcdefghijklmnopqrstuvwxyz-_';
@@ -312,6 +313,8 @@ catch(PDOException $e){
   print('Error : ' . $e->getMessage());
   exit();
 }
+}
 setcookie('save', '1');
-header('Location: index.php');}
+header('Location: index.php');
+}
 ?>
