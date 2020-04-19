@@ -302,6 +302,8 @@ $stmt->bindParam(':sverh', $sverh_db);
 $stmt->bindParam(':bio', $bio_db);
 $stmt->bindParam(':consent', $consent_db);
 $name_db=$_POST["name"];
+$login_db=$login;
+$pass_db=md5($password);
 $email_db=$_POST["email"];
 $year_db=$_POST["year"];
 $sex_db=$_POST["sex"];
