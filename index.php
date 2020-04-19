@@ -284,8 +284,8 @@ else
             }
         }
     }
-$user = 'логин';
-$pass = 'пароль';
+$user = 'u17361';
+$pass = '1020693';
 $db = new PDO('mysql:host=localhost;dbname=u17361', $user, $pass,
 array(PDO::ATTR_PERSISTENT => true));
 try {

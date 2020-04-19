@@ -43,8 +43,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 else {
         $flag=FALSE;
         $MESSAGE='';
-        $user = 'логин';
-        $pass = 'пароль';
+        $user = 'u17361';
+        $pass = '1020693';
         $log=$_POST['login'];
         $db = new PDO('mysql:host=localhost;dbname=u17361', $user, $pass,
         array(PDO::ATTR_PERSISTENT => true));
