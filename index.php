@@ -228,8 +228,8 @@ else {
 
     if (session_start() && !empty($_COOKIE[session_name()]) && !empty($_SESSION['login'])) 
     {
-    $user = 'логин';
-    $password = 'пароль';
+    $user = 'u17361';
+    $password = '1020693';
     $sverh_separated='';
     $log=$_SESSION['login'];
     $db = new PDO('mysql:host=localhost;dbname=u17361', $user, $password,array(PDO::ATTR_PERSISTENT => true));
@@ -289,7 +289,7 @@ $pass = '1020693';
 $db = new PDO('mysql:host=localhost;dbname=u17361', $user, $pass,
 array(PDO::ATTR_PERSISTENT => true));
 try {
- $stmt = $db->prepare("INSERT INTO application (name, email, birth, sex, limbs,sverh,bio,consent) 
+ $stmt = $db->prepare("INSERT INTO cappapride (name, email, birth, sex, limbs,sverh,bio,consent) 
  VALUES (:name, :email, :birth, :sex, :limbs,:sverh,:bio, :consent)");
 $stmt->bindParam(':name', $name_db);
 $stmt->bindParam(':email', $email_db);
