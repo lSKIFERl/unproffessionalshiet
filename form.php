@@ -58,6 +58,9 @@ caption {
                 if (!empty($messages['save'])) {
                     print($messages['save']);
                 }
+                if(!empty($messages['login_and_password'])){
+                    print($messages['login_and_password']);
+                }
                 ?>
 				<div id="nam">
                     <?php
@@ -92,38 +95,31 @@ caption {
 				<div id="BIRTHYEAR">
                     <?php
                     $ERROR='';
+                    $year='';
                     if (!empty($messages['year'])) {
                         print($messages['year']);
                         $ERROR='error';
-                    } ?>
-                    Дата рождения:
-                    <span class="<?php print $ERROR?>">
-                        <select name="year" size="1">
-                            <?php
-                            $select=array(1999=>'',2000=>'',2001=>'',2002=>'',2003=>'');
-                            for($s=1999;$s<=2003;$s++){
-                                if($values['year']==$s){
-                                    $select[$s]='selected';break;
-                                }
-                            }
-                            ?>
-                            <option value="">...</option>
-                            <option value="1999" <?php print $select[1999]?>>1999</option>
-                            <option value="2000" <?php print $select[2000]?>>2000</option>
-                            <option value="2001" <?php print $select[2001]?>>2001</option>
-                            <option value="2002" <?php print $select[2002]?>>2002</option>
-                            <option value="2003" <?php print $select[2003]?>>2003</option>
-                        </select>
-                    </span>
+                    }
+                    if(!empty($values['year'])){
+                        $year=$values['year'];
+                    }
+                    ?>
+                    Дата рождения: <input name="year" value="<?php print $year?>" class="<?php print $ERROR?>" placeholder="17.05.2009">
+                    
 				</div>
                 </br>
 				<div id="SEX">
                     <?php
                     $ERROR='';
+                    $sex='';
                     if (!empty($messages['sex'])) {
                         print($messages['sex']);
                         $ERROR='error';
-                    }?>
+                    }
+                    if(!empty($values['sex'])){
+                        $sex=$values['sex'];
+                    }
+                    ?>
                 Пол:    <span class="<?php print $ERROR?>">
                             <input type="radio" value="M" name="sex"<?php if($values['sex']=='M') {print'checked';}?> >Муж
                             <input type="radio" value="F" name="sex"<?php if($values['sex']=='F') {print'checked';}?> >Жен
@@ -199,9 +195,13 @@ caption {
                     <div id="biography">
                         <?php
                         $ERROR='';
+                        $BIO='';
                         if (!empty($messages['biography'])) {
                             print($messages['biography']);
                             $ERROR='error';
+                        }
+                        if(!empty($values['biography'])){
+                            $BIO=$values['biography'];
                         }
                         ?>
                         <p class="<?php print $ERROR?>" >
@@ -213,19 +213,28 @@ caption {
                     <div id="Consent"  >
                     <?php
                     $ERROR='';
+                    $consent='';
                     if (!empty($messages['consent'])) {
                         print($messages['consent']);
                         $ERROR='error';
                     }
+                    if(!empty($values['consent'])){
+                        $consent='checked';
+                    }
                     ?>
                     <span class="<?php print $ERROR?>" >Ставя свою подпись, вы принимаете условия компании ООО "Одинокая Гора" и согласны отправиться в путешествие к горе Эребор, а также не имеете никаких притязаний на трон Короля под Горой.
         Через время после отправки, с Вами свяжется высокий седобородый старец.
-					    <input type="checkbox" name="consent"  value="yes" <?php if($values['consent']=='yes') {print'checked';}?> >
+        <input type="checkbox" name="consent"  value="yes" <?php print $consent?>>
                     </span>
                 </div>
                 </br>
 				<input type="submit" value="Отправить">
 			</form>
+            <?php   
+                    if(!empty($_SESSION['login'])){
+                        print('<form method="POST" action="login.php"><input type="submit" name="exit" value="Выход"></form>');
+                    }
+                ?>
 		</div>	
 	</body>
 </html>

@@ -5,11 +5,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $errors = array();
     $values = array();
     if (!empty($_COOKIE['save'])) {
-        setcookie('save', '', 100000);
-        $messages['save'] = 'Результаты сохранены.';
+        setcookie('save','',100000);
+        setcookie('login', '',100000);
+        setcookie('pass', '', 100000);
+        $messages['save'] = 'Сохраняем результаты...';
+        if (!empty($_COOKIE['pass'])) {
+            $messages['login_and_password'] = sprintf('Вы можете <a href="login.php">войти</a> как <strong>%s</strong>, используя пароль: <strong>%s</strong> для изменения данных.',
+            strip_tags($_COOKIE['login']),
+            strip_tags($_COOKIE['pass']));
+          }
     }
-$errors = FALSE;
-$flag=FALSE;
+
+    $flag=FALSE;
 $sverh_separated='';
     $errors['name'] = !empty($_COOKIE['name_error']);
     $errors['email'] = !empty($_COOKIE['email_error']);
@@ -56,10 +63,6 @@ $sverh_separated='';
             setcookie('sverh_error','',100000);
             $messages['sverh'] = '<div id="events">Способность не выбрана</div>';
         }
-        /*if($_COOKIE['sverh_error']=="noneselected"){
-            setcookie('sverh_error','',100000);
-            $messages['sverh'] = '<div id="events">выбранно none и зачем я его сюда добавил...</div>';
-        }*/
     }
     if ($errors['biography']) {
             setcookie('biography_error','',100000);
@@ -79,7 +82,53 @@ $sverh_separated='';
     $values['sverh'] = empty($_COOKIE['sverh_value']) ? '' : $_COOKIE['sverh_value'];
     $values['biography'] = empty($_COOKIE['biography_value']) ? '' : $_COOKIE['biography_value'];
     $values['consent'] = empty($_COOKIE['consent_value']) ? '' : $_COOKIE['consent_value'];
-include('form.php');
+    if (session_start() && !empty($_COOKIE[session_name()]) && !empty($_SESSION['login'])) {
+        $user = 'логин';
+        $password = 'пароль';
+        $log=$_SESSION['login'];
+        $db = new PDO('mysql:host=localhost;dbname=логин', $user, $password,
+        array(PDO::ATTR_PERSISTENT => true));
+        try{
+        $stmt = $db->prepare("SELECT name,email,birth,sex,limbs,sverh,bio,consent FROM cappapride WHERE login = '$log'");
+        $stmt->execute();
+            while ($row = $stmt->fetch(PDO::FETCH_LAZY))
+            {
+                 $values['name']=$row['name'];
+                 $values['email']=$row['email'];
+                 $values['year']=$row['birth'];
+                 $values['sex']=$row['sex'];
+                 $values['limbs']=$row['limbs'];
+                 $values_f=array();
+                 if(!empty($row['sverh'])){
+                    if(stristr($row['sverh'],'net') == TRUE) {
+                      array_push($values_f,'net');
+                    }
+                    if(stristr($row['sverh'],'godmod') == TRUE) {
+                      array_push($values_f,'godmod');
+                    }
+                    if(stristr($row['sverh'],'levitation') == TRUE) {
+                      array_push($values_f,'levitation');
+                    }
+                    if(stristr($row['sverh'],'unvisibility') == TRUE) {
+                      array_push($values_f,'unvisibility');
+                    }
+                    if(stristr($row['sverh'],'telekinesis') == TRUE) {
+                      array_push($values_f,'telekinesis');
+                    }
+                    if(stristr($row['sverh'],'extrasensory') == TRUE) {
+                      array_push($values_f,'extrasensory');
+                    }
+                    $values['sverh']=serialize($values_f);
+                  }
+                 $values['biography']=$row['bio'];
+                 $values['consent']=$row['consent'];
+            }
+    }catch(PDOException $e){
+        print('Error : ' . $e->getMessage());
+        exit();
+        } 
+    }
+    include('form.php');
 }
 else {
     /*Проверяем на ошибки*/
@@ -177,6 +226,51 @@ else {
         setcookie('sex_error', '', 100000);setcookie('consent_error', '', 100000);
     }
 
+    if (session_start() && !empty($_COOKIE[session_name()]) && !empty($_SESSION['login'])) 
+    {
+    $user = 'логин';
+    $password = 'пароль';
+    $sverh_separated='';
+    $log=$_SESSION['login'];
+    $db = new PDO('mysql:host=localhost;dbname=u17361', $user, $password,array(PDO::ATTR_PERSISTENT => true));
+    try {
+    $stmt = $db->prepare("UPDATE cappapride SET name=?,email=?,birth=?,sex=?,limbs=?,sverh=?,bio=?,consent=? WHERE login='$log' ");
+    
+    $name=$_POST["name"];
+    $email=$_POST["email"];
+    $birth=$_POST["year"];
+    $sex=$_POST["sex"];
+    $limbs=$_POST["limbs"];
+    if(!empty($_POST['sverh'])){
+        $sverh_mass=$_POST['sverh'];
+        for($w=0;$w<count($sverh_mass);$w++){
+            if($flag){
+                if($sverh_mass[$w]!="net")unset($sverh_mass[$w]);
+                $sverh_separated=implode(' ',$sverh_mass);
+            }else{
+                $sverh_separated=implode(' ',$sverh_mass);
+            }
+        }
+    }
+    $sverh=$sverh_separated;
+    $bio=$_POST["biography"];
+    $consent=$_POST["consent"];
+    
+    $stmt->execute(array($name,$email,$birth,$sex,$limbs,$sverh,$bio,$consent,));
+    }catch(PDOException $e){
+        print('Error : ' . $e->getMessage());
+        exit();
+    }
+}else 
+{
+    $logins_chars = '0123456789abcdefghijklmnopqrstuvwxyz';
+    $pass_chars='0123456789abcdefghijklmnopqrstuvwxyz-_';
+    $login = substr(str_shuffle($logins_chars), 0, 3);
+    $password =substr(str_shuffle($pass_chars),0,3);
+    // Сохраняем в Cookies.
+    setcookie('login', $login);
+    setcookie('pass', $password);
+
 /*запись в бд*/
     if(!empty($_POST['sverh'])){
         $sverh_mass=$_POST['sverh'];
@@ -189,8 +283,8 @@ else {
             }
         }
     }
-$user = 'u17361';
-$pass = '1020693';
+$user = 'логин';
+$pass = 'пароль';
 $db = new PDO('mysql:host=localhost;dbname=u17361', $user, $pass,
 array(PDO::ATTR_PERSISTENT => true));
 try {
