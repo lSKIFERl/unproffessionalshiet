@@ -289,9 +289,11 @@ $pass = '1020693';
 $db = new PDO('mysql:host=localhost;dbname=u17361', $user, $pass,
 array(PDO::ATTR_PERSISTENT => true));
 try {
- $stmt = $db->prepare("INSERT INTO cappapride (name, email, birth, sex, limbs,sverh,bio,consent) 
- VALUES (:name, :email, :birth, :sex, :limbs,:sverh,:bio, :consent)");
+ $stmt = $db->prepare("INSERT INTO cappapride (name,login,password, email, birth, sex, limbs,sverh,bio,consent) 
+ VALUES (:name,:login,:password, :email, :birth, :sex, :limbs,:sverh,:bio, :consent)");
 $stmt->bindParam(':name', $name_db);
+$stmt->bindParam(':login', $login_db);
+$stmt->bindParam(':password', $pass_db);
 $stmt->bindParam(':email', $email_db);
 $stmt->bindParam(':birth', $year_db);
 $stmt->bindParam(':sex', $sex_db);
