@@ -49,7 +49,7 @@ else {
         $db = new PDO('mysql:host=localhost;dbname=u17361', $user, $pass,
         array(PDO::ATTR_PERSISTENT => true));
         if(!empty($_POST['login']) && !empty($_POST['pass'])){
-            foreach($db->query("SELECT login FROM info ") as $row) {
+            foreach($db->query("SELECT login FROM cappapride ") as $row) {
               if($_POST['login']==$row['login']){
                 $flag=TRUE;break;
               }
